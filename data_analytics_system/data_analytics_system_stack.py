@@ -81,8 +81,8 @@ class DataAnalyticsSystemStack(core.Stack):
     core.Tag.add(sg_es, 'Name', 'es-cluster-sg')
 
     sg_es.add_ingress_rule(peer=sg_es, connection=aws_ec2.Port.all_tcp(), description='es-cluster-sg')
-    sg_es.add_ingress_rule(peer=sg_use_es, connection=aws_ec2.Port.tcp_range(9100, 9400), description='use-es-cluster-sg')
-    sg_es.add_ingress_rule(peer=sg_bastion_host, connection=aws_ec2.Port.tcp_range(9100, 9400), description='bastion-host-sg')
+    sg_es.add_ingress_rule(peer=sg_use_es, connection=aws_ec2.Port.all_tcp(), description='use-es-cluster-sg')
+    sg_es.add_ingress_rule(peer=sg_bastion_host, connection=aws_ec2.Port.all_tcp(), description='bastion-host-sg')
 
     s3_bucket = s3.Bucket(self, "s3bucket",
       bucket_name="aws-analytics-immersion-day-{region}-{account}".format(
