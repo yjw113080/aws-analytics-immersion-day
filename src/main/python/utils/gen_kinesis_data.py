@@ -118,6 +118,8 @@ def put_records_to_kinesis(client, options, records):
 def main():
   parser = argparse.ArgumentParser()
 
+  parser.add_argument('--region-name', action='store', default='us-east-1',
+    help='aws region name (default: us-east-1)')
   parser.add_argument('-I', '--input-file', required=True, help='The input file path ex) ./resources/online_retail.csv')
   parser.add_argument('--out-format', default='json', choices=['csv', 'tsv', 'json'])
   parser.add_argument('--service-name', required=True, choices=['kinesis', 'firehose', 'console'])
@@ -129,7 +131,7 @@ def main():
   options = parser.parse_args()
   with open(options.input_file, newline='') as csvfile:
     reader = csv.DictReader(csvfile)
-    client = boto3.client(options.service_name) if options.service_name != 'console' else None
+    client = boto3.client(options.service_name, region_name=options.region_name) if options.service_name != 'console' else None
     counter = 0
     for records in gen_records(options, reader):
       if options.service_name == 'kinesis':

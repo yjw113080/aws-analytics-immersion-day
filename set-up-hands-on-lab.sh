@@ -9,6 +9,11 @@ then
   sudo yum -y update
   sudo yum -y install python36
   sudo pip-3.6 install -U boto3
+elif [[ z"${OS_NAME}" == z"\"Amazon Linux\"" ]];
+then
+  sudo yum -y update
+  sudo yum -y install python3
+  sudo pip3 install -U boto3
 elif [[ z"${OS_NAME}" == z"\"Ubuntu\"" ]];
 then
   sudo apt-get -y update
