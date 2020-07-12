@@ -62,7 +62,19 @@ class DataAnalyticsSystemStack(core.Stack):
       subnet_selection=aws_ec2.SubnetSelection(subnet_type=aws_ec2.SubnetType.PUBLIC),
       security_group=sg_bastion_host
     )
+
+    #TODO: SHOULD restrict IP range allowed to ssh acces
     bastion_host.allow_ssh_access_from(aws_ec2.Peer.ipv4("0.0.0.0/0"))
+
+    #XXX: In order to test data pipeline, add {Kinesis, KinesisFirehose}FullAccess Policy to the bastion host.
+    bastion_host.role.add_to_policy(aws_iam.PolicyStatement(
+      effect=aws_iam.Effect.ALLOW,
+      resources=["*"],
+      actions=["kinesis:*"]))
+    bastion_host.role.add_to_policy(aws_iam.PolicyStatement(
+      effect=aws_iam.Effect.ALLOW,
+      resources=["*"],
+      actions=["firehose:*"]))
 
     sg_use_es = aws_ec2.SecurityGroup(self, "ElasticSearchClientSG",
       vpc=vpc,
@@ -231,8 +243,12 @@ class DataAnalyticsSystemStack(core.Stack):
       code=_lambda.Code.asset("./src/main/python/UpsertToES"),
       environment={
         'ES_HOST': es_cfn_domain.attr_domain_endpoint,
+        #TODO: MUST set appropriate environment variables for your workloads.
         'ES_INDEX': 'retail',
-        'ES_TYPE': 'trans'
+        'ES_TYPE': 'trans',
+        'REQUIRED_FIELDS': 'Invoice,StockCode,Customer_ID',
+        'REGION_NAME': kwargs['env'].region,
+        'DATE_TYPE_FIELDS': 'InvoiceDate'
       },
       timeout=core.Duration.minutes(5),
       layers=[es_lib_layer],
