@@ -138,3 +138,8 @@ bin/
 lib64
 pyvenv.cfg
 .DS_Store
+
+cdk.context.json
+cdk.out/
+zap/
+
