@@ -178,7 +178,7 @@ class DataAnalyticsSystemStack(core.Stack):
 
     #XXX: aws cdk elastsearch example - https://github.com/aws/aws-cdk/issues/2873
     es_domain_name = 'retail'
-    es_cfn_domain = aws_elasticsearch.CfnDomain(self, 'ElasticSearch',
+    es_cfn_domain = aws_elasticsearch.CfnDomain(self, "ElasticSearch",
       elasticsearch_cluster_config={
         "dedicatedMasterCount": 3,
         "dedicatedMasterEnabled": True,
@@ -279,8 +279,8 @@ class DataAnalyticsSystemStack(core.Stack):
         'NEW_DATABASE': 'mydatabase',
         'NEW_TABLE_NAME': 'ctas_retail_trans_parquet',
         'WORK_GROUP': 'primary',
-        'OUTPUT_PREFIX': os.path.join(s3_bucket.bucket_name, 'parquet-retail-trans'),
-        'STAGING_OUTPUT_PREFIX': os.path.join(s3_bucket.bucket_name, 'tmp'),
+        'OUTPUT_PREFIX': 's3://{}'.format(os.path.join(s3_bucket.bucket_name, 'parquet-retail-trans')),
+        'STAGING_OUTPUT_PREFIX': 's3://{}'.format(os.path.join(s3_bucket.bucket_name, 'tmp')),
         'COLUMN_NAMES': 'invoice,stockcode,description,quantity,invoicedate,price,customer_id,country',
       },
       timeout=core.Duration.minutes(5)
