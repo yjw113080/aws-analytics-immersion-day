@@ -624,8 +624,8 @@ cdk를 실행할 때 사용할 IAM User를 생성한 후, `~/.aws/config`에 등
 설정 한 후, `cdk deploy` 명령어를 이용해서 배포합니다.
 
     ```shell script
-    $ git clone https://github.com/ksmin23/navigator-search.git
-    $ cd navigator-search
+    $ git clone https://github.com/ksmin23/aws-analytics-immersion-day.git
+    $ cd aws-analytics-immersion-day
     $ python3 -m venv .env
     $ source .env/bin/activate
     (.env) $ pip install -r requirements.txt
