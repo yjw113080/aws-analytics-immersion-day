@@ -595,7 +595,7 @@ AWS CDK를 이용해서 배포하는 방법을 소개 합니다.
 
 ### Deployment
 
-CDK로 배포할 경우, 아래 아키텍처 그림의 1(a), 1(b), 1(c), 1(f), 2(b), 2(a)가 자동으로 생성됩니다.
+CDK로 배포할 경우, 아래 아키텍처 그림의 `1(a), 1(b), 1(c), 1(f), 2(b), 2(a)`가 자동으로 생성됩니다.
 
 ![aws-analytics-system-build-steps-extra](./assets/aws-analytics-system-build-steps-extra.png)
 
