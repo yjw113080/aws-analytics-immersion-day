@@ -562,6 +562,24 @@ Lambda Architecture 구조의 Business Intelligent System을 구축해 보셨습
 + [Analyze Apache Parquet optimized data using Amazon Kinesis Data Firehose, Amazon Athena, and Amazon Redshift](https://aws.amazon.com/blogs/big-data/analyzing-apache-parquet-optimized-data-using-amazon-kinesis-data-firehose-amazon-athena-and-amazon-redshift/)
 + [Our data lake story: How Woot.com built a serverless data lake on AWS](https://aws.amazon.com/blogs/big-data/our-data-lake-story-how-woot-com-built-a-serverless-data-lake-on-aws/)
 
+#### Securely Connect Bastion Hosts
++ [Securing your bastion hosts with Amazon EC2 Instance Connect](https://aws.amazon.com/blogs/infrastructure-and-automation/securing-your-bastion-hosts-with-amazon-ec2-instance-connect/)
+
+  ```
+  $ # (1) Create a new ssh key.
+  $ ssh-keygen -t rsa -f my_rsa_key
+
+  $ # (2) Push your SSH public key to the instance.
+  $ aws ec2-instance-connect send-ssh-public-key \
+    --instance-id $BASTION_INSTANCE \
+    --availability-zone $DEPLOY_AZ \
+    --instance-os-user ec2-user \
+    --ssh-public-key file:///path/to/my_rsa_key.pub
+
+  $ # (3) Connect to the instance using your private key.
+  $ ssh -i /path/to/my_rsa_key ec2-user@$BASTION_DNS_NAME
+  ```
+
 \[[Top](#Top)\]
 
 ## Appendix
