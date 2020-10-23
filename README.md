@@ -294,9 +294,9 @@ Amazon ES 도메인은 Elasticsearch 클러스터와 동의어입니다. 도메�
 1. AWS Management Console에서 Analytics의 **Elasticsearch** 서비스를 선택합니다.
 2. (Step 1: Choose deployment type) **Create a new domain(새 도메인 생성)** 을 선택합니다.
 3. **Elasticsearch 도메인 생성** 페이지에서 **Deployment type(배포 유형)** 에 대해 **Production(프로덕션)** 을 선택합니다.
-4. **버전**에서 해당 도메인의 Elasticsearch 버전을 선택합니다. 지원되는 최신 버전을 선택하는 것이 좋습니다. 자세한 내용은 지원되는 Elasticsearch 버전 단원을 참조하십시오.
+4. **버전**에서 해당 도메인의 Elasticsearch 버전을 선택합니다. 지원되는 최신 버전을 선택하는 것이 좋습니다. 자세한 내용은[지원되는 Elasticsearch 버전](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/what-is-amazon-elasticsearch-service.html#aes-choosing-version) 단원을 참조하십시오.
 5. **\[Next\]** 를 선택합니다.
-6. (Step 2: Configure domain) 도메인의 이름을 입력합니다. 이 실에서는 이후에 다룰 `retail`를 예제 도메인 이름으로 사용합니다.
+6. (Step 2: Configure domain) 도메인의 이름을 입력합니다. 이 실습에서는 이후에 다룰 `retail`를 예제 도메인 이름으로 사용합니다.
 7. **인스턴스 유형** 에서 Amazon ES 도메인의 인스턴스 유형을 선택합니다. 이 실습에서는 테스트 목적에 적합한 소용량의 경제적인 인스턴스 유형
 `t2.medium.elasticsearch`를 사용하는 것이 좋습니다.
 8. **인스턴스 수** 에 원하는 인스턴스 수를 입력합니다. 이 실습에서는 기본값 `1`을 사용합니다.
@@ -631,7 +631,7 @@ cdk를 실행할 때 사용할 IAM User를 생성한 후, `~/.aws/config`에 등
     region=us-east-1
     ```
 
-2. Lambda Layer에 등록할 Python 패키지를 생성해서 s3 bucket에 저장함
+2. Lambda Layer에 등록할 Python 패키지를 생성해서 s3 bucket에 저장한다.
 에를 들어, elasticsearch 패키지를 Lambda Layer에 등록 할 수 있도록 `lambda-layer-resources`라는 이름의 s3 bucket을 생성 후, 아래와 같이 저장합니다.
 
     ```shell script
