@@ -103,7 +103,7 @@ def lambda_handler(event, context):
   event_dt = datetime.datetime.strptime(event['time'], "%Y-%m-%dT%H:%M:%SZ")
   prev_basic_dt, basic_dt = [event_dt - datetime.timedelta(hours=e) for e in (2, 1)]
 
-  client = boto3.client('athena')
+  client = boto3.client('athena', region_name=AWS_REGION)
   run_drop_tmp_table(client, prev_basic_dt)
 
   print('[INFO] Wait for a few seconds until dropping old table', file=sys.stderr)
