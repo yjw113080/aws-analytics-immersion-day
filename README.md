@@ -399,6 +399,8 @@ layer의 arn을 직접 입력하면 됩니다.
 12. **\[Add environment variables\]** 를 클릭해서 아래 4개의 Environment variables을 등록합니다.
     ```shell script
     ES_HOST=<elasticsearch service domain>
+    ES_INDEX=<elasticsearch index name>
+    ES_TYPE=<elasticsearch type name>
     REQUIRED_FIELDS=<primary key로 사용될 column 목록>
     REGION_NAME=<region-name>
     DATE_TYPE_FIELDS=<column 중, date 또는 timestamp 데이터 타입의 column>
@@ -406,6 +408,8 @@ layer의 arn을 직접 입력하면 됩니다.
     예를 들어, 다음과 같이 Environment variables을 설정합니다.
     ```buildoutcfg
     ES_HOST=vpc-retail-xkl5jpog76d5abzhg4kyfilymq.us-west-1.es.amazonaws.com
+    ES_INDEX=retail
+    ES_TYPE=trans
     REQUIRED_FIELDS=Invoice,StockCode,Customer_ID
     REGION_NAME=us-west-2
     DATE_TYPE_FIELDS=InvoiceDate
@@ -628,8 +632,8 @@ cdk를 실행할 때 사용할 IAM User를 생성한 후, `~/.aws/config`에 등
     ```shell script
     $ cat ~/.aws/config
     [profile cdk_user]
-    aws_access_key_id=AKIAI44QH8DHBEXAMPLE
-    aws_secret_access_key=je7MtGbClwBF/2Zp9Utk/h3yCo8nvbEXAMPLEKEY
+    aws_access_key_id=AKIAIOSFODNN7EXAMPLE
+    aws_secret_access_key=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
     region=us-east-1
     ```
 
@@ -651,10 +655,14 @@ cdk를 실행할 때 사용할 IAM User를 생성한 후, `~/.aws/config`에 등
     $ python3 -m venv .env
     $ source .env/bin/activate
     (.env) $ pip install -r requirements.txt
-    (.env) $ S3_BUCKET_LAMBDA_LAYER_LIB=lambda-layer-resources cdk --profile cdk_user deploy
+    (.env) $ export CDK_DEFAULT_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+    (.env) $ export CDK_DEFAULT_REGION=us-west-2
+    (.env) $ cdk bootstrap aws://${CDK_DEFAULT_ACCOUNT}/${CDK_DEFAULT_REGION}
+    (.env) $ export S3_BUCKET_LAMBDA_LAYER_LIB=lambda-layer-resources
+    (.env) $ cdk --profile cdk_user deploy
     ```
 
-4. 배포한 애플리케이션을 삭제하려면, `cdk destroy` 명령어를 아래와 같이 실행 합니다.
+1. 배포한 애플리케이션을 삭제하려면, `cdk destroy` 명령어를 아래와 같이 실행 합니다.
     ```shell script
     (.env) $ cdk --profile cdk_user destroy
     ```
