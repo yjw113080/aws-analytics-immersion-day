@@ -92,7 +92,8 @@ S3 bucket 이름은 이번 실습에서는 `aws-analytics-immersion-day-xxxxxxxx
 2. `gen_kinesis_data.py`을 실행합니다.
     ```shell script
     $ python3 gen_kinesis_data.py --help
-    usage: gen_kinesis_data.py [-h] [-I INPUT_FILE] [--out-format {csv,tsv,json}]
+    usage: gen_kinesis_data.py [-h][--region-name REGION_NAME] -I INPUT_FILE
+                               [--out-format {csv,tsv,json}]
                                [--service-name {kinesis,firehose}]
                                [--stream-name STREAM_NAME] [--max-count MAX_COUNT]
                                [--dry-run]
@@ -111,6 +112,7 @@ S3 bucket 이름은 이번 실습에서는 `aws-analytics-immersion-day-xxxxxxxx
       --dry-run
     
     $ python3 gen_kinesis_data.py -I resources/online_retail.csv \
+    --region-name us-west-2 \
     --service-name kinesis \
     --out-format json \
     --stream-name retail-trans
