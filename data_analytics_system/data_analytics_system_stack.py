@@ -48,7 +48,7 @@ class DataAnalyticsSystemStack(core.Stack):
       description='security group for an bastion host',
       security_group_name='bastion-host-sg'
     )
-    core.Tag.add(sg_bastion_host, 'Name', 'bastion-host-sg')
+    core.Tags.of(sg_bastion_host).add('Name', 'bastion-host-sg')
 
     #XXX: https://docs.aws.amazon.com/cdk/api/latest/python/aws_cdk.aws_ec2/InstanceClass.html
     #XXX: https://docs.aws.amazon.com/cdk/api/latest/python/aws_cdk.aws_ec2/InstanceSize.html#aws_cdk.aws_ec2.InstanceSize
@@ -84,7 +84,7 @@ class DataAnalyticsSystemStack(core.Stack):
       description='security group for an elasticsearch client',
       security_group_name='use-es-cluster-sg'
     )
-    core.Tag.add(sg_use_es, 'Name', 'use-es-cluster-sg')
+    core.Tags.of(sg_use_es).add('Name', 'use-es-cluster-sg')
 
     sg_es = aws_ec2.SecurityGroup(self, "ElasticSearchSG",
       vpc=vpc,
@@ -92,7 +92,7 @@ class DataAnalyticsSystemStack(core.Stack):
       description='security group for an elasticsearch cluster',
       security_group_name='es-cluster-sg'
     )
-    core.Tag.add(sg_es, 'Name', 'es-cluster-sg')
+    core.Tags.of(sg_es).add('Name', 'es-cluster-sg')
 
     sg_es.add_ingress_rule(peer=sg_es, connection=aws_ec2.Port.all_tcp(), description='es-cluster-sg')
     sg_es.add_ingress_rule(peer=sg_use_es, connection=aws_ec2.Port.all_tcp(), description='use-es-cluster-sg')
@@ -193,7 +193,7 @@ class DataAnalyticsSystemStack(core.Stack):
         "volumeType": "gp2"
       },
       domain_name=es_domain_name,
-      elasticsearch_version="7.4",
+      elasticsearch_version="7.8",
       encryption_at_rest_options={
         "enabled": False
       },
@@ -222,7 +222,7 @@ class DataAnalyticsSystemStack(core.Stack):
         "subnetIds": vpc.select_subnets(subnet_type=aws_ec2.SubnetType.PRIVATE).subnet_ids
       }
     )
-    core.Tag.add(es_cfn_domain, 'Name', 'analytics-workshop-es')
+    core.Tags.of(es_cfn_domain).add('Name', 'analytics-workshop-es')
 
     #XXX: https://github.com/aws/aws-cdk/issues/1342
     s3_lib_bucket = s3.Bucket.from_bucket_name(self, id, S3_BUCKET_LAMBDA_LAYER_LIB)
