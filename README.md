@@ -662,7 +662,7 @@ cdk를 실행할 때 사용할 IAM User를 생성한 후, `~/.aws/config`에 등
     (.env) $ cdk --profile cdk_user deploy
     ```
 
-   :information_source: `cdk bootstrap ...` 명령어는 CDK toolkit stack 배포를 위해 최초 한번만 실행 하고, 이후에 배포할 때는 CDK toolkit stack 배포 없이 `cdk deploy` 명령어만 수행한면 됩니다..
+   :information_source: `cdk bootstrap ...` 명령어는 CDK toolkit stack 배포를 위해 최초 한번만 실행 하고, 이후에 배포할 때는 CDK toolkit stack 배포 없이 `cdk deploy` 명령어만 수행한면 됩니다.
 
     ```shell script
     (.env) $ export CDK_DEFAULT_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
