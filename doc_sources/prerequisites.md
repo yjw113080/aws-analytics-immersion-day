@@ -1,4 +1,4 @@
-# 실습 준비 작업
+# <a name="top"></a>실습 준비 작업
 실습을 시작 하기 전에 필요한 IAM User, EC2를 생성하고 및 구성합니다.
 
 ## Table of Contents
@@ -20,7 +20,7 @@ AWS Management Console access 둘 모두를 선택합니다. Console password에
 6. **\[Next: Review\]** 버튼을 클릭하고 정보를 확인한 뒤 Create user 버튼을 클릭하여 사용자 생성을 완료합니다.
 7. Download.csv 버튼을 클릭하여 생성한 사용자의 정보를 다운 받습니다. EC2 설정에 꼭 필요한 파일이므로 기억하기 쉬운 위치에 저장합니다.
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="security-group"></a>Security Groups 생성
 ### bastion host로 사용할 EC2 인스턴스를 위한 Security Groups 생성
@@ -41,7 +41,7 @@ AWS Management Console access 둘 모두를 선택합니다. Console password에
 
     ![aws-ec2-security-group-for-bastion](../assets/aws-ec2-security-group-for-bastion.png)
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ### Elasicsearch Service에서 사용할 Security Groups 생성
 Elasticsearch Service을 위한 security group을 생성하고 구성합니다.
@@ -68,7 +68,7 @@ Security Group에 필요한 정보를 입력한 후, 새로운 security group을
 
      ![aws-ec2-security-group-for-es-cluster](../assets/aws-ec2-security-group-for-es-cluster.png)
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="ec2-launch"></a>EC2 생성
 실습에 필요한 데이터를 실시간으로 발생시킬 EC2 인스턴스를 생성합니다.
@@ -101,7 +101,7 @@ Key Pair를 PC의 임의 위치에 저장한 후 **\[Launch Instances\]** 를 �
     Windows OS 사용자의 경우, [PuTTY를 사용하여 Windows에서 Linux 인스턴스에 연결](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html)
     를 참고하십시요.
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="ec2-user-configuration"></a>EC2 설정
 생성한 EC2 인스턴스가 다른 AWS 리소스에 접근 및 제어할 수 있도록 다음과 같이 구성합니다.
@@ -150,4 +150,4 @@ Key Pair를 PC의 임의 위치에 저장한 후 **\[Launch Instances\]** 를 �
     Default output format [None]: 
     ```
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
