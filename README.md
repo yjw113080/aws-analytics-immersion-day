@@ -1,4 +1,4 @@
-# AWS Analytics Immersion Day Workshop
+# <a name="top"></a>AWS Analytics Immersion Day Workshop
 
 이 실습의 목적은 Businesss Intelligence System을 aws의 analytics 서비스를 활용해서 구현해 보는 것 입니다.
 이 실습을 통해서 `데이터 수집 -> 저장 -> 분석/처리 -> 시각화` 단계를 aws의 analytics 서비스를 이용해서
@@ -42,7 +42,7 @@ AWS Management Console에서 Kinesis 서비스를 선택합니다.
 4. Number of shards 에 원하는 shards 수(예: `1`)를 입력합니다.
 5. **\[Create data stream\]** 버튼을 클릭 후, 생성된 kinesis stream의 status가 active가 될 때까지 기다립니다.
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="kinesis-data-firehose"></a>데이터를 S3에 저장하기 위한 Kinesis Data Firehose 생성하기
 Kinesis Data Firehose를 이용해서 실시간으로 데이터를 S3, Redshift, ElasticSearch 등의 목적지에 수집할 수 있습니다.
@@ -81,7 +81,7 @@ S3 bucket 이름은 이번 실습에서는 `aws-analytics-immersion-day-xxxxxxxx
 10. 새롭게 생성된 역할이 추가된 것을 확인한 뒤 Next 버튼을 클릭합니다.
 11. (Step 5: Review) Review에서 입력한 정보를 확인한 뒤 틀린 부분이 없다면, **\[Create delivery stream\]** 버튼을 클릭하여 Firehose 생성을 완료합니다.
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="kinesis-data-pipeline"></a>데이터 파이프라인 동작 확인 하기
 샘플 데이터를 이용해서 `Kinesis Data Streams -> Kinesis Data Firehose -> S3` 로 데이터가 정상적으로 수집되는지 확인합니다.
@@ -120,7 +120,7 @@ S3 bucket 이름은 이번 실습에서는 `aws-analytics-immersion-day-xxxxxxxx
 3. 매 초 데이터가 발생하는 것을 확인합니다. 충분한 데이터 수집을 위해 실행 중인 상태로 다음 단계를 진행합니다.
 4. 몇 분 뒤 생성한 S3 bucket을 확인해 보면, 생성된 원본 데이터가 Kinesis Data Firehose를 통해 S3에 저장되는 것을 확인할 수 있습니다. 
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="athena"></a>Athena를 이용해서 데이터 분석 하기
 Amazon Athena를 이용해서 S3에 저장된 데이터를 기반으로 테이블을 만들고, 테이블을 쿼리한 다음 쿼리 결과를 확인할 수 있습니다.
@@ -188,7 +188,7 @@ Amazon Athena를 이용해서 S3에 저장된 데이터를 기반으로 테이�
 다음과 같은 형식의 결과가 반환됩니다.
 ![aws_athena_select_all_limit_10](./assets/aws_athena_select_all_limit_10.png)
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="amazon-quicksight-visualization"></a>QuickSight를 이용한 데이터 시각화
 이번에는 Amazon QuickSight를 통해 데이터 시각화 작업을 합니다.
@@ -231,7 +231,7 @@ Email은 다른 사용자의 Email 주소를 입력하고 Role은 AUTHOR, IAM Us
 17. 사용자는 다음과 같은 Email을 수신합니다. **\[Click to View\]** 를 클릭하여 분석결과를 확인할 수 있습니다.
 ![aws-quicksight-user-email-click-to-view](./assets/aws-quicksight-user-email-click-to-view.png)
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="athena-ctas-lambda-function"></a>(Optional) AWS Lambda Function을 이용해서 S3에 저장된 작은 파일들을 큰 파일로 합치기
 실시간으로 들어오는 데이터를 Kinesis Data Firehose를 이용해서 S3에 저장할 경우, 데이터 사이즈가 작은 파일들이 생성됩니다.
@@ -285,7 +285,7 @@ Rule type으로 `Schedule expression`을 선택하고, Schedule expression에 �
 13. Basic settings에서 **\[Edit\]** 선택합니다. Memory와 Timeout을 알맞게 조정합니다.
 이 실습에서는 Timout을 `5 min` 으로 설정합니다.
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="amazon-es"></a>실시간 데이터 분석을 위한 Amazon Elasticsearch Service 생성하기
 실시간으로 데이터를 저장하고, 분석하기 위해서 Elasticsearch cluster를 생성합니다.
@@ -358,7 +358,7 @@ Amazon ES 도메인은 Elasticsearch 클러스터와 동의어입니다. 도메�
 16. **Encryption(암호화)** 의 모든 기본값을 유지합니다. **\[Next\]** 를 선택합니다.
 17. **Review** 페이지에서 도메인 구성을 검토한 다음 **확인**을 선택합니다.
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="amazon-lambda-function"></a>AWS Lambda Function을 이용해서 실시간 데이터를 ElasticSearch에 수집하기
 Lambda function을 이용해서 Amazon ES에 데이터를 실시간으로 색인할 수 있습니다.
@@ -432,7 +432,7 @@ security groups을 선택합니다.
 21. **\[Add\]** 를 선택합니다.
 ![aws-lambda-kinesis](./assets/aws-lambda-kinesis.png)
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## <a name="amazon-es-kibana-visualization"></a>Kibana를 이용한 데이터 시각화
 Amazon Elasticsearch Service에서 수집된 데이터를 Kibana를 이용해서 시각화 작업을 합니다.
@@ -499,13 +499,13 @@ Time Filter field name에 `InvoiceDate` 를 선택합니다.
 17. (Dashboards) 아래와 같은 Dashboard를 확인할 수 있습니다.
 ![kibana-13-complete](./assets/kibana-13-complete.png)
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## Recap and Review
 이 실습을 통해서 데이터 파이프라인을 만들어서 실시간 데이터 처리와 배치 데이터 처리 layer로 구성된
 Lambda Architecture 구조의 Business Intelligent System을 구축해 보셨습니다.
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## Reference
 ### AWS Developer Guide By Services
@@ -528,7 +528,7 @@ Lambda Architecture 구조의 Business Intelligent System을 구축해 보셨습
     $ zip -r es-lib.zip python/ # 필요한 패키지가 설치된 디렉터리를 압축함
     $ aws s3 cp es-lib.zip s3://my-lambda-layer-packages/python/ # 압축한 패키지를 s3에 업로드 한 후, lambda layer에 패키지를 등록할 때, s3 위치를 등록하면 됨
     ```
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ### Further readings
 ##### Amazon S3
@@ -588,7 +588,7 @@ Lambda Architecture 구조의 Business Intelligent System을 구축해 보셨습
   $ ssh -i /path/to/my_rsa_key ec2-user@$BASTION_DNS_NAME
   ```
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ## Appendix
 
@@ -619,7 +619,7 @@ AWS CDK를 이용해서 배포하는 방법을 소개 합니다.
  * `cdk diff`        compare deployed stack with current state
  * `cdk docs`        open CDK documentation
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
 
 ### Deployment
 
@@ -678,4 +678,4 @@ cdk를 실행할 때 사용할 IAM User를 생성한 후, `~/.aws/config`에 등
     (.env) $ cdk --profile cdk_user destroy
     ```
 
-\[[Top](#Top)\]
+\[[Top](#top)\]
