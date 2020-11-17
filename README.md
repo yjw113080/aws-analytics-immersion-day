@@ -261,6 +261,7 @@ Rule type으로 `Schedule expression`을 선택하고, Schedule expression에 �
     NEW_DATABASE=<destination database>
     NEW_TABLE_NAME=<destination table>
     WORK_GROUP=<athena workgroup>
+    OLD_TABLE_LOCATION_PREFIX=<s3 location prefix of source table>
     OUTPUT_PREFIX=<destination s3 prefix>
     STAGING_OUTPUT_PREFIX=<staging s3 prefix used by athena>
     COLUMN_NAMES=<columns of source table excluding partition keys>
@@ -272,6 +273,7 @@ Rule type으로 `Schedule expression`을 선택하고, Schedule expression에 �
     NEW_DATABASE=mydatabase
     NEW_TABLE_NAME=ctas_retail_trans_parquet
     WORK_GROUP=primary
+    OLD_TABLE_LOCATION_PREFIX=s3://aws-analytics-immersion-day-xxxxxxxx/json-data
     OUTPUT_PREFIX=s3://aws-analytics-immersion-day-xxxxxxxx/parquet-retail-trans
     STAGING_OUTPUT_PREFIX=s3://aws-analytics-immersion-day-xxxxxxxx/tmp
     COLUMN_NAMES=invoice,stockcode,description,quantity,invoicedate,price,customer_id,country

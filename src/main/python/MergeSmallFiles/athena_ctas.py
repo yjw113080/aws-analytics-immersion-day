@@ -20,6 +20,7 @@ OLD_TABLE_NAME = os.getenv('OLD_TABLE_NAME')
 NEW_DATABASE = os.getenv('NEW_DATABASE')
 NEW_TABLE_NAME = os.getenv('NEW_TABLE_NAME')
 WORK_GROUP = os.getenv('WORK_GROUP', 'primary')
+OLD_TABLE_LOCATION_PREFIX = os.getenv('OLD_TABLE_LOCATION_PREFIX')
 OUTPUT_PREFIX = os.getenv('OUTPUT_PREFIX')
 STAGING_OUTPUT_PREFIX = os.getenv('STAGING_OUTPUT_PREFIX')
 COLUMN_NAMES = os.getenv('COLUMN_NAMES', '*')
@@ -36,6 +37,44 @@ FROM {old_database}.{old_table_name}
 WHERE year={year} AND month={month} AND day={day} AND hour={hour}
 WITH DATA
 '''
+
+def run_alter_table_add_partition(athena_client, basic_dt, database_name, table_name, output_prefix):
+  year, month, day, hour = (basic_dt.year, basic_dt.month, basic_dt.day, basic_dt.hour)
+
+  tmp_table_name = '{table}_{year}{month:02}{day:02}{hour:02}'.format(table=NEW_TABLE_NAME,
+      year=year, month=month, day=day, hour=hour)
+
+  output_location = '{}/alter_table_{}'.format(STAGING_OUTPUT_PREFIX, tmp_table_name)
+
+  alter_table_stmt = '''ALTER TABLE {database}.{table_name} ADD if NOT EXISTS'''.format(database=database_name,
+    table_name=table_name)
+
+  partition_expr = '''PARTITION (year={year}, month={month}, day={day}, hour={hour}) LOCATION "{output_prefix}/year={year}/month={month:02}/day={day:02}/hour={hour:02}/"'''
+
+  partition_expr_list = []
+  for i in (1, 0, -1):
+     dt = basic_dt - datetime.timedelta(hours=i)
+     year, month, day, hour = (dt.year, dt.month, dt.day, dt.hour)
+     part_expr = partition_expr.format(year=year, month=month, day=day, hour=hour, output_prefix=output_prefix)
+     partition_expr_list.append(part_expr)
+
+  query = '{} {}'.format(alter_table_stmt, '\n'.join(partition_expr_list))
+  print('[INFO] QueryString:\n{}'.format(query), file=sys.stderr)
+  print('[INFO] OutputLocation: {}'.format(output_location), file=sys.stderr)
+
+  if DRY_RUN:
+    print('[INFO] End of dry-run', file=sys.stderr)
+    return
+
+  response = athena_client.start_query_execution(
+    QueryString=query,
+    ResultConfiguration={
+      'OutputLocation': output_location
+    },
+    WorkGroup=WORK_GROUP
+  )
+  print('[INFO] QueryExecutionId: {}'.format(response['QueryExecutionId']), file=sys.stderr)
+
 
 def run_drop_tmp_table(athena_client, basic_dt):
   year, month, day, hour = (basic_dt.year, basic_dt.month, basic_dt.day, basic_dt.hour)
@@ -107,6 +146,20 @@ def lambda_handler(event, context):
   run_drop_tmp_table(client, prev_basic_dt)
 
   print('[INFO] Wait for a few seconds until dropping old table', file=sys.stderr)
+  time.sleep(10)
+
+  run_alter_table_add_partition(client, basic_dt,
+    database_name=OLD_DATABASE,
+    table_name=OLD_TABLE_NAME,
+    output_prefix=OLD_TABLE_LOCATION_PREFIX)
+  print('[INFO] Wait for a few seconds until adding partitions to table: %s.%s' % (OLD_DATABASE, OLD_TABLE_NAME), file=sys.stderr)
+  time.sleep(10)
+
+  run_alter_table_add_partition(client, basic_dt,
+    database_name=NEW_DATABASE,
+    table_name=NEW_TABLE_NAME,
+    output_prefix=OUTPUT_PREFIX)
+  print('[INFO] Wait for a few seconds until adding partitions to table: %s.%s' % (NEW_DATABASE, NEW_TABLE_NAME), file=sys.stderr)
   time.sleep(10)
 
   run_ctas(client, basic_dt)
