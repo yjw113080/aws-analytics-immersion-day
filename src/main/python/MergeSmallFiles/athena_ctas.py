@@ -41,7 +41,7 @@ WITH DATA
 def run_alter_table_add_partition(athena_client, basic_dt, database_name, table_name, output_prefix):
   year, month, day, hour = (basic_dt.year, basic_dt.month, basic_dt.day, basic_dt.hour)
 
-  tmp_table_name = '{table}_{year}{month:02}{day:02}{hour:02}'.format(table=NEW_TABLE_NAME,
+  tmp_table_name = '{table}_{year}{month:02}{day:02}{hour:02}'.format(table=table_name,
       year=year, month=month, day=day, hour=hour)
 
   output_location = '{}/alter_table_{}'.format(STAGING_OUTPUT_PREFIX, tmp_table_name)
