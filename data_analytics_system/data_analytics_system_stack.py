@@ -279,6 +279,7 @@ class DataAnalyticsSystemStack(core.Stack):
         'NEW_DATABASE': 'mydatabase',
         'NEW_TABLE_NAME': 'ctas_retail_trans_parquet',
         'WORK_GROUP': 'primary',
+        'OLD_TABLE_LOCATION_PREFIX': 's3://{}'.format(os.path.join(s3_bucket.bucket_name, 'json-data')),
         'OUTPUT_PREFIX': 's3://{}'.format(os.path.join(s3_bucket.bucket_name, 'parquet-retail-trans')),
         'STAGING_OUTPUT_PREFIX': 's3://{}'.format(os.path.join(s3_bucket.bucket_name, 'tmp')),
         'COLUMN_NAMES': 'invoice,stockcode,description,quantity,invoicedate,price,customer_id,country',
