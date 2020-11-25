@@ -202,7 +202,7 @@ if __name__ == '__main__':
   options = parser.parse_args()
 
   DRY_RUN = False if options.run else True
-  REGION_NAME = options.region_name
+  AWS_REGION = options.region_name
   OLD_DATABASE = options.old_database
   OLD_TABLE_NAME= options.old_table_name
   NEW_DATABASE = options.new_database
