@@ -17,6 +17,7 @@
 * [\[Step-2b\] AWS Lambda Function을 이용해서 실시간 데이터를 ElasticSearch에 수집하기](#amazon-lambda-function)
 * [\[Step-2c\] Kibana를 이용한 데이터 시각화](#amazon-es-kibana-visualization)
 * [Recap and Review](#recap-and-review)
+* [Resources](#resources)
 * [Reference](#reference)
 * [Appendix](#appendix)
 
@@ -544,6 +545,10 @@ Time Filter field name에 `InvoiceDate` 를 선택합니다.
 Lambda Architecture 구조의 Business Intelligent System을 구축해 보셨습니다.
 
 \[[Top](#top)\]
+
+## Resources
++ slide: [AWS Analytics Immersion Day - Build BI System from Scratch](https://www.slideshare.net/ksmin23/aws-analytics-immersion-day-build-bi-system-from-scratch-230492367)
++ data source: [Online Retail II Data Set](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II)
 
 ## Reference
 ### AWS Developer Guide By Services
