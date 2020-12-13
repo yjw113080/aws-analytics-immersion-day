@@ -129,6 +129,8 @@ def main():
   parser.add_argument('--dry-run', action='store_true')
 
   options = parser.parse_args()
+  COUNT_STEP = 10 if options.dry_run else 100
+
   with open(options.input_file, newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     client = boto3.client(options.service_name, region_name=options.region_name) if options.service_name != 'console' else None
@@ -141,8 +143,10 @@ def main():
       else:
         print('\n'.join([e for e in records]))
       counter += 1
-      if counter % 100 == 0:
+      if counter % COUNT_STEP == 0:
         print('[INFO] {} steps are processed'.format(counter), file=sys.stderr)
+        if options.dry_run:
+          break
       time.sleep(random.choices([0.01, 0.03, 0.05, 0.07, 0.1])[-1])
 
 
