@@ -22,7 +22,7 @@
 * [Appendix](#appendix)
 
 ## <a name="solutions-architecture-overview"></a>Solutions Architecture Overview
-![aws-analytics-system-architecture](aws-analytics-system-arch.png)
+![aws-analytics-system-architecture](aws-analytics-system-arch.svg)
 
 \[[Top](#Top)\]
 
@@ -34,7 +34,7 @@
 
 ## <a name="kinesis-data-streams"></a>입력 데이터를 수신할 Kinesis Data Streams 생성하기
 
-![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.png)
+![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.svg)
 
 AWS Management Console에서 Kinesis 서비스를 선택합니다.
 1. **Get Started** 버튼을 클릭합니다.
@@ -49,7 +49,7 @@ AWS Management Console에서 Kinesis 서비스를 선택합니다.
 Kinesis Data Firehose를 이용해서 실시간으로 데이터를 S3, Redshift, ElasticSearch 등의 목적지에 수집할 수 있습니다.
 AWS Management Console에서 Kinesis 서비스를 선택합니다.
 
-![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.png)
+![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.svg)
 
 1. Get Started 버튼을 클릭합니다.
 2. Deliver streaming data with Kinesis Firehose delivery streams 메뉴의 **\[Create delivery stream\]** 을 클릭하여
@@ -87,7 +87,7 @@ S3 bucket 이름은 이번 실습에서는 `aws-analytics-immersion-day-xxxxxxxx
 ## <a name="kinesis-data-pipeline"></a>데이터 파이프라인 동작 확인 하기
 샘플 데이터를 이용해서 `Kinesis Data Streams -> Kinesis Data Firehose -> S3` 로 데이터가 정상적으로 수집되는지 확인합니다.
 
-![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.png)
+![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.svg)
 
 1. 앞서 생성한 E2 인스턴스에 SSH 접속을 합니다.
 2. `gen_kinesis_data.py`을 실행합니다.
@@ -127,7 +127,7 @@ S3 bucket 이름은 이번 실습에서는 `aws-analytics-immersion-day-xxxxxxxx
 Amazon Athena를 이용해서 S3에 저장된 데이터를 기반으로 테이블을 만들고, 테이블을 쿼리한 다음 쿼리 결과를 확인할 수 있습니다.
 먼저 데이터를 쿼리하기 위해서 데이터베이스를 생성합니다.
 
-![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.png)
+![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.svg)
 
 ### 1단계: 데이터베이스 생성
 1. Athena 콘솔을 엽니다.
@@ -194,7 +194,7 @@ Amazon Athena를 이용해서 S3에 저장된 데이터를 기반으로 테이�
 ## <a name="amazon-quicksight-visualization"></a>QuickSight를 이용한 데이터 시각화
 이번에는 Amazon QuickSight를 통해 데이터 시각화 작업을 합니다.
 
-![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.png)
+![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.svg)
 
 1. [QuickSight 콘솔](https://quicksight.aws.amazon.com)로 이동합니다.
 2. QuickSight에 가입하기 위해 **\[Sign up for QuickSight\]** 버튼을 클릭합니다.
@@ -239,7 +239,7 @@ Email은 다른 사용자의 Email 주소를 입력하고 Role은 AUTHOR, IAM Us
 Amazon Athena의 쿼리 성능 향상을 위해서 작은 파일들을 하나의 큰 파일로 합쳐주는 것이 좋습니다. 이러한 작업을 주기적으로 실행하기 위해서
 Athena의 CTAS(Create Table As Select) 쿼리를 실행하는 AWS Lambda function 함수를 생성하고자 합니다.
 
-![aws-analytics-system-build-steps-extra](./assets/aws-analytics-system-build-steps-extra.png)
+![aws-analytics-system-build-steps-extra](./assets/aws-analytics-system-build-steps-extra.svg)
 
 ### 1단계: CTAS 쿼리 결과를 저장하는 테이블 생성하기
 1. Athena 콘솔에 접속해서 Athena 쿼리 편집기로 이동합니다.
@@ -330,7 +330,7 @@ Rule type으로 `Schedule expression`을 선택하고, Schedule expression에 �
 실시간으로 데이터를 저장하고, 분석하기 위해서 Elasticsearch cluster를 생성합니다.
 Amazon ES 도메인은 Elasticsearch 클러스터와 동의어입니다. 도메인은 설정, 인스턴스 유형, 인스턴스 수, 스토리지 리소스를 지정한 설정입니다.
 
-![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.png)
+![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.svg)
 
 1. AWS Management Console에서 Analytics의 **Elasticsearch** 서비스를 선택합니다.
 2. (Step 1: Choose deployment type) **Create a new domain(새 도메인 생성)** 을 선택합니다.
@@ -403,7 +403,7 @@ Amazon ES 도메인은 Elasticsearch 클러스터와 동의어입니다. 도메�
 Lambda function을 이용해서 Amazon ES에 데이터를 실시간으로 색인할 수 있습니다.
 이번 실습에서는 AWS Lambda 콘솔을 사용하여 Lambda 함수를 생성합니다.
 
-![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.png)
+![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.svg)
 
 ### Lambda 함수에서 사용할 공통 라이브러를 Layers에 추가하려면,
 1. **AWS Lambda 콘솔** 을 엽니다.
@@ -476,7 +476,7 @@ security groups을 선택합니다.
 ## <a name="amazon-es-kibana-visualization"></a>Kibana를 이용한 데이터 시각화
 Amazon Elasticsearch Service에서 수집된 데이터를 Kibana를 이용해서 시각화 작업을 합니다.
 
-![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.png)
+![aws-analytics-system-build-steps](./assets/aws-analytics-system-build-steps.svg)
 
 1. Elasticsearch Cluster에 접속하기 위해서 개인 Local PC의 ssh config 파일에 아래와 같이 ssh tunnel 설정을 추가 한다.
     ```shell script
@@ -672,7 +672,7 @@ AWS CDK를 이용해서 배포하는 방법을 소개 합니다.
 
 CDK로 배포할 경우, 아래 아키텍처 그림의 `1(a), 1(b), 1(c), 1(f), 2(b), 2(a)`가 자동으로 생성됩니다.
 
-![aws-analytics-system-build-steps-extra](./assets/aws-analytics-system-build-steps-extra.png)
+![aws-analytics-system-build-steps-extra](./assets/aws-analytics-system-build-steps-extra.svg)
 
 1. [Getting Started With the AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)를 참고해서 cdk를 설치하고,
 cdk를 실행할 때 사용할 IAM User를 생성한 후, `~/.aws/config`에 등록합니다. ([사전 준비 작업](#preliminaries)를 참고해서 IAM User를 생성합니다.)
