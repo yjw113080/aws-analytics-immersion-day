@@ -45,8 +45,7 @@ class DataAnalyticsSystemStack(core.Stack):
     sg_bastion_host = aws_ec2.SecurityGroup(self, "BastionHostSG",
       vpc=vpc,
       allow_all_outbound=True,
-      description='security group for an bastion host',
-      security_group_name='bastion-host-sg'
+      description='security group for an bastion host'
     )
     core.Tags.of(sg_bastion_host).add('Name', 'bastion-host-sg')
 
@@ -98,9 +97,7 @@ class DataAnalyticsSystemStack(core.Stack):
     sg_es.add_ingress_rule(peer=sg_use_es, connection=aws_ec2.Port.all_tcp(), description='use-es-cluster-sg')
     sg_es.add_ingress_rule(peer=sg_bastion_host, connection=aws_ec2.Port.all_tcp(), description='bastion-host-sg')
 
-    s3_bucket = s3.Bucket(self, "s3bucket",
-      bucket_name="aws-analytics-immersion-day-{region}-{account}".format(
-        region=kwargs['env'].region, account=kwargs['env'].account))
+    s3_bucket = s3.Bucket(self, "s3bucket")
 
     trans_kinesis_stream = kinesis.Stream(self, "AnalyticsWorkshopKinesisStreams", stream_name='retail-trans')
 
@@ -143,7 +140,6 @@ class DataAnalyticsSystemStack(core.Stack):
     ))
 
     firehose_role = aws_iam.Role(self, "FirehoseDeliveryRole",
-      role_name="FirehoseDeliveryRole",
       assumed_by=aws_iam.ServicePrincipal("firehose.amazonaws.com"),
       #XXX: use inline_policies to work around https://github.com/aws/aws-cdk/issues/5221
       inline_policies={
@@ -239,7 +235,6 @@ class DataAnalyticsSystemStack(core.Stack):
     #XXX: Deploy lambda in VPC - https://github.com/aws/aws-cdk/issues/1342
     upsert_to_es_lambda_fn = _lambda.Function(self, "UpsertToES",
       runtime=_lambda.Runtime.PYTHON_3_7,
-      function_name="UpsertToES",
       handler="upsert_to_es.lambda_handler",
       description="Upsert records into elasticsearch",
       code=_lambda.Code.asset("./src/main/python/UpsertToES"),
@@ -262,13 +257,11 @@ class DataAnalyticsSystemStack(core.Stack):
     upsert_to_es_lambda_fn.add_event_source(trans_kinesis_event_source)
 
     log_group = aws_logs.LogGroup(self, "UpsertToESLogGroup",
-      log_group_name="/aws/lambda/UpsertToES",
       retention=aws_logs.RetentionDays.THREE_DAYS)
     log_group.grant_write(upsert_to_es_lambda_fn)
 
     merge_small_files_lambda_fn = _lambda.Function(self, "MergeSmallFiles",
       runtime=_lambda.Runtime.PYTHON_3_7,
-      function_name="MergeSmallFiles",
       handler="athena_ctas.lambda_handler",
       description="Merge small files in S3",
       code=_lambda.Code.asset("./src/main/python/MergeSmallFiles"),
@@ -334,7 +327,6 @@ class DataAnalyticsSystemStack(core.Stack):
     )
 
     log_group = aws_logs.LogGroup(self, "MergeSmallFilesLogGroup",
-      log_group_name="/aws/lambda/MergeSmallFiles",
       retention=aws_logs.RetentionDays.THREE_DAYS)
     log_group.grant_write(merge_small_files_lambda_fn)
 
